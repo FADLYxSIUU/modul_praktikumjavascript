@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Include JS files -->
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Kalkulator BMI </h1>
+
+        <!--  Opsi untuk memberikan tinggi dan berat untuk pengguna-->
+        <p>Tinggi (cm)</p>
+
+        <input type="text" id="height">
+
+        <p>Berat (kg)</p>
+
+        <input type="text" id="weight">
+
+        <button id="btn">Hitung</button>
+
+        <div id="result"></div>
+    </div>
+</body>
+
+</html>
+<script>
+    window.onload = () => {
+        let button = document.querySelector("#btn");
+
+        // Fungsi untuk menghitung BMI
+        button.addEventListener("click", calculateBMI);
+    };
+
+    function calculateBMI() {
+
+        /* Mendapatkan input dari pengguna ke dalam variabel height.
+    Input adalah string jadi perlu konversi tipe. */
+        let height = parseInt(document
+            .querySelector("#height").value);
+
+        /* Mendapatkan input dari pengguna ke dalam variabel weight.
+    Input adalah string jadi perlu konversi tipe. */
+        let weight = parseInt(document
+            .querySelector("#weight").value);
+
+        let result = document.querySelector("#result");
+
+        // Memeriksa apakah pengguna memberikan nilai yang benar atau tidak 
+
+        if (height === "" || isNaN(height))
+            result.innerHTML = "Provide a valid Height!";
+
+        else if (weight === "" || isNaN(weight))
+            result.innerHTML = "Provide a valid Weight!";
+
+        // If both input is valid, calculate the bmi
+        else {
+
+            // Membulatkan hingga 2 tempat desimal
+            let bmi = (weight / ((height * height)
+                / 10000)).toFixed(2);
+
+            // Membagi sesuai dengan kondisi bmi
+            if (bmi < 18.5) result.innerHTML =
+                Kekurangan Berat Badan : <span>${bmi}</span>;
+
+            else if (bmi >= 18.5 && bmi < 24.9)
+                result.innerHTML =
+                    Normal : <span>${bmi}</span>;
+
+            else if (bmi >= 25.0 && bmi < 29.9)
+                result.innerHTML =
+                    Kelebihan Berat Badan : <span>${bmi}</span>;
+
+            else result.innerHTML =
+                Kegemukan (Obesitas) : <span>${bmi}</span>;
+        }
+    }
+</script>
